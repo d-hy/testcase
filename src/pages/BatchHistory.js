@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Table, Tag, Progress, Button, Space } from 'antd'
-import { EyeOutlined } from '@ant-design/icons'
+import { Card, Table, Tag, Progress, Button, Space, Popconfirm } from 'antd'
+import { EyeOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useNavigate, Link } from 'react-router-dom'
 import { message } from 'antd'
 
@@ -14,8 +14,16 @@ const BatchHistory = () => {
     if (savedBatches) {
       try {
         const parsedBatches = JSON.parse(savedBatches)
-        console.log('Loaded batches:', parsedBatches)
-        setBatches(parsedBatches)
+        // 确保每个测试用例都有steps数组
+        const normalizedBatches = parsedBatches.map(batch => ({
+          ...batch,
+          cases: batch.cases.map(testCase => ({
+            ...testCase,
+            steps: Array.isArray(testCase.steps) ? testCase.steps : []
+          }))
+        }))
+        console.log('Loaded batches:', normalizedBatches)
+        setBatches(normalizedBatches)
       } catch (error) {
         console.error('Error parsing batches:', error)
         message.error('加载批次数据失败')
@@ -37,6 +45,23 @@ const BatchHistory = () => {
       failed: failedCases,
       available: availableTotal,
       passRate: availableTotal > 0 ? Math.round((passedCases / availableTotal) * 100) : 0
+    }
+  }
+
+  const handleDelete = batchId => {
+    try {
+      // 从 localStorage 中获取最新的批次数据
+      const savedBatches = JSON.parse(localStorage.getItem('testBatches') || '[]')
+      // 过滤掉要删除的批次
+      const updatedBatches = savedBatches.filter(batch => batch.id !== batchId)
+      // 保存更新后的数据
+      localStorage.setItem('testBatches', JSON.stringify(updatedBatches))
+      // 更新状态
+      setBatches(updatedBatches)
+      message.success('删除成功')
+    } catch (error) {
+      console.error('Error deleting batch:', error)
+      message.error('删除失败')
     }
   }
 
@@ -120,14 +145,20 @@ const BatchHistory = () => {
     {
       title: '操作',
       key: 'action',
-      render: (text, record) => {
-        console.log('Rendering batch link with id:', record.id)
-        return (
-          <Space size="middle">
-            <Link to={`/execution/detail/${record.id}`}>查看详情</Link>
-          </Space>
-        )
-      }
+      render: (_, record) => (
+        <Space size="middle">
+          <Link to={`/execution/detail/${record.id}`}>查看详情</Link>
+          <Popconfirm
+            title="确定要删除这个批次吗？"
+            description="删除后无法恢复，请谨慎操作"
+            onConfirm={() => handleDelete(record.id)}
+            okText="确定"
+            cancelText="取消"
+          >
+            <Button type="text" danger icon={<DeleteOutlined />} />
+          </Popconfirm>
+        </Space>
+      )
     }
   ]
 

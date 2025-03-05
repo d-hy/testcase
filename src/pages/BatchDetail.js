@@ -111,6 +111,33 @@ const BatchDetail = () => {
     }
   }
 
+  const renderSteps = text => {
+    if (!text) return '-'
+    const steps = text.split('\\n')
+    return (
+      <ol
+        style={{
+          margin: 0,
+          paddingLeft: 24,
+          listStyle: 'decimal'
+        }}
+      >
+        {steps.map((step, index) => (
+          <li
+            key={index}
+            style={{
+              lineHeight: '1.5',
+              marginBottom: '8px',
+              color: '#333'
+            }}
+          >
+            {step.replace(/^\d+\.\s*/, '')}
+          </li>
+        ))}
+      </ol>
+    )
+  }
+
   const columns = [
     {
       title: '序号',
@@ -128,20 +155,48 @@ const BatchDetail = () => {
       title: '前置条件',
       dataIndex: 'precondition',
       key: 'precondition',
-      render: text => text || '-'
+      render: renderSteps
     },
     {
       title: '步骤',
       dataIndex: 'steps',
       key: 'steps',
       render: steps => {
+        if (typeof steps === 'string') {
+          return renderSteps(steps)
+        }
+
         if (!Array.isArray(steps) || !steps.length) return '-'
         return (
-          <ul style={{ margin: 0, paddingLeft: 20 }}>
+          <ol
+            style={{
+              margin: 0,
+              paddingLeft: 24,
+              listStyle: 'decimal'
+            }}
+          >
             {steps.map((step, index) => (
-              <li key={index}>{step}</li>
+              <li
+                key={index}
+                style={{
+                  lineHeight: '1.5',
+                  marginBottom: '8px',
+                  color: '#333'
+                }}
+              >
+                {typeof step === 'object' ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <div>{step.action || step.description}</div>
+                    {step.expected && (
+                      <div style={{ color: '#666', marginTop: '4px', paddingLeft: '12px' }}>预期：{step.expected}</div>
+                    )}
+                  </div>
+                ) : (
+                  step
+                )}
+              </li>
             ))}
-          </ul>
+          </ol>
         )
       }
     },
@@ -149,7 +204,7 @@ const BatchDetail = () => {
       title: '预期结果',
       dataIndex: 'expectedResult',
       key: 'expectedResult',
-      render: text => text || '-'
+      render: renderSteps
     },
     {
       title: '状态',
@@ -318,4 +373,3 @@ const BatchDetail = () => {
 }
 
 export default BatchDetail
-

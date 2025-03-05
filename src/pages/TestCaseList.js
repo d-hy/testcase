@@ -115,7 +115,7 @@ function TestCaseList() {
     setIsModalVisible(true)
   }
 
-  // 添加确认创建批次的处理函数
+  // 修改确认创建批次的处理函数
   const handleModalOk = async () => {
     try {
       const values = await form.validateFields()
@@ -123,15 +123,26 @@ function TestCaseList() {
       // 获取选中的用例
       const selectedCases = testCases.filter(testCase => selectedRowKeys.includes(testCase.id))
 
-      // 创建新批次
+      // 创建新批次，处理步骤数据
       const newBatch = {
         id: Date.now(),
         name: values.batchName,
         createdAt: new Date().toISOString(),
-        cases: selectedCases.map(testCase => ({
-          ...testCase,
-          status: 'pending' // 重置状态为待执行
-        }))
+        cases: selectedCases.map(testCase => {
+          // 如果steps是字符串，转换为数组格式
+          const stepsArray = testCase.steps
+            ? testCase.steps.split('\\n').map(step => ({
+                action: step.replace(/^\d+\.\s*/, ''),
+                description: step.replace(/^\d+\.\s*/, '')
+              }))
+            : []
+
+          return {
+            ...testCase,
+            steps: stepsArray,
+            status: 'pending' // 重置状态为待执行
+          }
+        })
       }
 
       // 保存到 localStorage
@@ -140,11 +151,9 @@ function TestCaseList() {
       localStorage.setItem('testBatches', JSON.stringify([...batches, newBatch]))
 
       message.success('批次创建成功')
-      // 清空选择和表单
       setSelectedRowKeys([])
       form.resetFields()
       setIsModalVisible(false)
-      // 跳转到批次详情页
       navigate(`/execution/detail/${newBatch.id}`)
     } catch (error) {
       console.error('Error creating batch:', error)
@@ -313,4 +322,3 @@ function TestCaseList() {
 }
 
 export default TestCaseList
-
