@@ -1,0 +1,157 @@
+.sidebar-container {
+  width: 220px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #f0f0f0;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.logo {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #f0f0f0;
+  background: #001529;
+}
+
+.logo h1 {
+  color: #fff;
+  font-size: 20px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.custom-menu {
+  flex: 1;
+  border-right: none !important;
+}
+
+.custom-menu .ant-menu-item {
+  margin: 4px 0;
+  padding-left: 24px !important;
+  height: 48px !important;
+  line-height: 48px !important;
+}
+
+.custom-menu .ant-menu-submenu-title {
+  margin: 4px 0;
+  padding-left: 24px !important;
+  height: 48px !important;
+  line-height: 48px !important;
+}
+
+.custom-menu .ant-menu-item:active,
+.custom-menu .ant-menu-submenu-title:active {
+  background: #e6f7ff;
+}
+
+.custom-menu .ant-menu-item-selected {
+  background-color: #e6f7ff !important;
+  border-right: 3px solid #1890ff;
+}
+
+.custom-menu .ant-menu-item .anticon,
+.custom-menu .ant-menu-submenu-title .anticon {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.custom-menu .ant-menu-item a {
+  color: rgba(0, 0, 0, 0.85);
+  text-decoration: none;
+  display: block;
+}
+
+.custom-menu .ant-menu-item-selected a {
+  color: #1890ff;
+}
+
+.custom-menu .ant-menu-submenu-arrow {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.custom-menu .ant-menu-submenu-selected > .ant-menu-submenu-title {
+  color: #1890ff;
+}
+
+.custom-menu .ant-menu-item:hover,
+.custom-menu .ant-menu-submenu-title:hover {
+  color: #1890ff;
+}
+
+.custom-menu .ant-menu-submenu-inline > .ant-menu-submenu-title:hover .ant-menu-submenu-arrow {
+  color: #1890ff;
+}
+
+.sidebar {
+  height: 100vh;
+  background: #001529;
+}
+
+/* 一级菜单样式 */
+.ant-menu-submenu-title {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  height: 50px !important;
+  line-height: 50px !important;
+  margin: 4px 0 !important;
+}
+
+/* 二级菜单样式 */
+.ant-menu-sub.ant-menu-inline {
+  background: #000c17 !important;
+  padding-left: 8px !important;
+}
+
+.ant-menu-sub.ant-menu-inline .ant-menu-item {
+  font-size: 14px;
+  padding-left: 32px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  margin: 4px 0 !important;
+  border-radius: 4px !important;
+  background: #000c17 !important;
+}
+
+/* 独立的一级菜单项样式 */
+.ant-menu-item.ant-menu-item-only-child {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  height: 50px !important;
+  line-height: 50px !important;
+  margin: 4px 0 !important;
+}
+
+/* 选中状态样式 */
+.ant-menu-item-selected {
+  background-color: #1890ff !important;
+  border-radius: 4px !important;
+}
+
+/* 悬停状态样式 */
+.ant-menu-item:hover {
+  background-color: rgba(24, 144, 255, 0.1) !important;
+}
+
+/* 子菜单展开时的背景色 */
+.ant-menu-submenu-open > .ant-menu-submenu-title {
+  background-color: #001529 !important;
+}
+
+/* 子菜单内容区域样式 */
+.ant-menu-inline .ant-menu-sub {
+  background: #000c17 !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 菜单分隔线 */
+.ant-menu-submenu::after {
+  content: '';
+  display: block;
+  height: 1px;
+  margin: 4px 16px;
+  background: rgba(255, 255, 255, 0.08);
+}

@@ -1,0 +1,110 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+
+.ant-layout-sider {
+  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+.ant-layout-content {
+  margin: 24px 16px;
+  padding: 24px;
+  background: #fff;
+  min-height: 280px;
+}
+
+/* 测试用例表格样式 */
+.test-case-table .ant-table-thead > tr > th {
+  background-color: #f8f9fa;
+  color: #1f2937;
+  font-weight: 600;
+  padding: 16px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.test-case-table .ant-table-tbody > tr > td {
+  padding: 20px 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.test-case-table .ant-table-tbody > tr:hover > td {
+  background-color: #f0f7ff !important;
+}
+
+.test-case-index-column {
+  font-weight: 500;
+  color: #666;
+  text-align: center;
+}
+
+.test-case-name-column {
+  font-weight: 500;
+}
+
+.test-case-content-column ol {
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+
+.test-case-content-column li {
+  line-height: 1.8;
+  margin-bottom: 12px;
+  color: #333;
+  padding-left: 8px;
+}
+
+.test-case-content-column li:last-child {
+  margin-bottom: 0;
+}
+
+.test-case-priority-column .ant-tag,
+.test-case-status-column .ant-tag {
+  min-width: 60px;
+  text-align: center;
+  font-weight: 500;
+  padding: 4px 8px;
+}
+
+.test-case-action-column {
+  background-color: #fff !important;
+}
+
+.test-case-action-column .ant-btn {
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin: 0 4px;
+}
+
+.test-case-action-column .ant-btn:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.test-case-table .ant-table-cell {
+  vertical-align: top;
+}
+
+/* 分页样式 */
+.ant-pagination {
+  margin-top: 16px !important;
+  padding: 16px;
+  background: #fff;
+  border-top: 1px solid #f0f0f0;
+}
+
+.test-case-table .ant-table-tbody > tr > td > div {
+  margin: 0 !important;
+}
